@@ -50,10 +50,12 @@ class ExampleProvider : MainAPI() {
 
     override suspend fun load(url: String): LoadResponse {
         return newLiveStreamLoadResponse(
-            name = "Live Stream",
+            name = name,
             url = url,
             type = TvType.Live
-        )
+        ) {
+            this.dataUrl = url
+        }
     }
 
     override suspend fun loadLinks(
@@ -63,14 +65,15 @@ class ExampleProvider : MainAPI() {
         callback: (ExtractorLink) -> Unit
     ): Boolean {
         callback(
-            ExtractorLink(
-                source = this.name,
-                name = this.name,
+            newExtractorLink(
+                source = name,
+                name = name,
                 url = data,
-                referer = "",
-                quality = Qualities.Unknown.value,
-                isM3u8 = data.contains(".m3u8")
-            )
+                type = ExtractorLinkType.M3U8
+            ) {
+                this.referer = ""
+                this.quality = Qualities.Unknown.value
+            }
         )
         return true
     }
