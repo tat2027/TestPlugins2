@@ -39,7 +39,7 @@ jobs:
         run: |
           cd src
           chmod +x gradlew
-          ./gradlew makePlugins
+          ./gradlew makePlugins -Pkotlin.suppressOptions=true -Dkotlin.options.freeCompilerArgs="-Xskip-metadata-version-check"
 
       - name: Push builds
         run: |
