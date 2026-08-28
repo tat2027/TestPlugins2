@@ -52,10 +52,8 @@ class ExampleProvider : MainAPI() {
         return newLiveStreamLoadResponse(
             name = name,
             url = url,
-            type = TvType.Live
-        ) {
-            this.dataUrl = url
-        }
+            dataUrl = url
+        )
     }
 
     override suspend fun loadLinks(
