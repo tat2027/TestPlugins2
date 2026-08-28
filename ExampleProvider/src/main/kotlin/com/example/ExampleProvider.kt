@@ -10,7 +10,7 @@ class ExampleProvider : MainAPI() {
     override var lang = "ur"
     override val hasMainPage = true
 
-    private val rawPlaylistUrl = "https://raw.githubusercontent.com/tat2027/TV1/refs/heads/main/INDIA.m3u"
+    private val rawPlaylistUrl = "https://raw.githubusercontent.com/tat2027/TV1/main/INDIA.m3u"
 
     override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
         val response = app.get(rawPlaylistUrl).text
