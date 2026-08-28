@@ -27,14 +27,21 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew makePlugins
-          # Ensure builds folder exists for deployment
-          mkdir -p builds
-          cp -r build/builds/* builds/ 2>/dev/null || true
+
+      - name: Prepare Artifacts
+        run: |
+          mkdir -p output_deploy
+          
+          # Search and copy generated plugins/json from all possible output locations
+          find . -maxdepth 3 -type f \( -name "*.json" -o -name "*.cs3" -o -name "*.zip" \) -exec cp {} output_deploy/ \;
+          
+          # Debug print step
+          ls -la output_deploy/
 
       - name: Deploy to builds branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./builds
+          publish_dir: ./output_deploy
           publish_branch: builds
           force_orphan: true
