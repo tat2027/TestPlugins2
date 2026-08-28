@@ -68,8 +68,7 @@ class ExampleProvider : MainAPI() {
             newExtractorLink(
                 source = name,
                 name = name,
-                url = data,
-                isM3u8 = true
+                url = data
             )
         )
         return true
