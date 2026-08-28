@@ -11,7 +11,7 @@ class ExampleProvider : MainProvider() {
     override val hasMainPage = true
 
     // Apni Raw M3U playlist file ka URL yahan daalein
-    private val rawPlaylistUrl = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/playlist.m3u"
+    private val rawPlaylistUrl = "https://raw.githubusercontent.com/tat2027/TV1/refs/heads/main/INDIA.m3u"
 
     override async fun getMainPage(page: Int, request: ProviderRequest): HomePageResponse? {
         val response = app.get(rawPlaylistUrl).text
