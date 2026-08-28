@@ -27,6 +27,9 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew makePlugins
+          # Ensure builds folder exists for deployment
+          mkdir -p builds
+          cp -r build/builds/* builds/ 2>/dev/null || true
 
       - name: Deploy to builds branch
         uses: peaceiris/actions-gh-pages@v4
