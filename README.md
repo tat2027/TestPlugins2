@@ -1,4 +1,4 @@
-1**⚠️ This is currently under development, dont use it yet if you're not comfortable with constantly merging new changes**1
+1**⚠️ This is currently under development, dont use it yet if you're not comfortable with constantly merging new changes**12
 
 # `Cloudstream3 Plugin Repo Template`
 
