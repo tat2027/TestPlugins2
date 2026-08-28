@@ -16,17 +16,14 @@ class ExampleProvider : MainAPI() {
         val response = app.get(rawPlaylistUrl).text
         val channels = mutableListOf<SearchResponse>()
         val lines = response.lines()
-        
+
         var currentTitle = ""
         var currentPoster = ""
 
         for (line in lines) {
             val trimmedLine = line.trim()
             if (trimmedLine.startsWith("#EXTINF:")) {
-                // Extract Channel Title after the last comma
                 currentTitle = trimmedLine.substringAfter(",").trim()
-                
-                // Extract tvg-logo if available
                 currentPoster = if (trimmedLine.contains("tvg-logo=\"")) {
                     trimmedLine.substringAfter("tvg-logo=\"").substringBefore("\"")
                 } else {
@@ -43,7 +40,6 @@ class ExampleProvider : MainAPI() {
                     }
                     channels.add(liveResponse)
                     
-                    // Reset variables for next entry
                     currentTitle = ""
                     currentPoster = ""
                 }
@@ -54,7 +50,7 @@ class ExampleProvider : MainAPI() {
 
     override suspend fun load(url: String): LoadResponse {
         return newLiveStreamLoadResponse(
-            name = name,
+            name = "Live Stream",
             url = url,
             dataUrl = url
         )
