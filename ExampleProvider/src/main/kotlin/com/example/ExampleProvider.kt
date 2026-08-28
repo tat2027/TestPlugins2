@@ -65,10 +65,13 @@ class ExampleProvider : MainAPI() {
         callback: (ExtractorLink) -> Unit
     ): Boolean {
         callback(
-            newExtractorLink(
+            ExtractorLink(
                 source = name,
                 name = name,
-                url = data
+                url = data,
+                referer = "",
+                quality = Qualities.Unknown.value,
+                isM3u8 = true
             )
         )
         return true
