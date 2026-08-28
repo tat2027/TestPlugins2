@@ -31,11 +31,9 @@ class ExampleProvider : MainAPI() {
                             TvType.Live
                         )
                     )
-                    currentTitle = ""
                 }
             }
         }
-
-        return newHomePageResponse(listOf(HomePageList("IPTV Channels", channels)))
+        return newHomePageResponse(name, channels)
     }
 }
