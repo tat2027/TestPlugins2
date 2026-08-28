@@ -66,12 +66,11 @@ class ExampleProvider : MainAPI() {
     ): Boolean {
         callback(
             newExtractorLink(
-                name = name,
                 source = name,
-                url = data
-            ) {
-                this.isM3u8 = true
-            }
+                name = name,
+                url = data,
+                isM3u8 = true
+            )
         )
         return true
     }
