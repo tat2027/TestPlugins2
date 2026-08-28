@@ -16,24 +16,66 @@ class ExampleProvider : MainAPI() {
         val response = app.get(rawPlaylistUrl).text
         val channels = mutableListOf<SearchResponse>()
         val lines = response.lines()
+        
         var currentTitle = ""
+        var currentPoster = ""
 
         for (line in lines) {
             val trimmedLine = line.trim()
             if (trimmedLine.startsWith("#EXTINF:")) {
+                // Extract Channel Title after the last comma
                 currentTitle = trimmedLine.substringAfter(",").trim()
+                
+                // Extract tvg-logo if available
+                currentPoster = if (trimmedLine.contains("tvg-logo=\"")) {
+                    trimmedLine.substringAfter("tvg-logo=\"").substringBefore("\"")
+                } else {
+                    ""
+                }
             } else if (trimmedLine.startsWith("http://") || trimmedLine.startsWith("https://")) {
                 if (currentTitle.isNotEmpty()) {
-                    channels.add(
-                        newLiveSearchResponse(
-                            currentTitle,
-                            trimmedLine,
-                            TvType.Live
-                        )
-                    )
+                    val liveResponse = newLiveSearchResponse(
+                        name = currentTitle,
+                        url = trimmedLine,
+                        type = TvType.Live
+                    ) {
+                        this.posterUrl = currentPoster.ifEmpty { null }
+                    }
+                    channels.add(liveResponse)
+                    
+                    // Reset variables for next entry
+                    currentTitle = ""
+                    currentPoster = ""
                 }
             }
         }
         return newHomePageResponse(name, channels)
+    }
+
+    override suspend fun load(url: String): LoadResponse {
+        return newLiveStreamLoadResponse(
+            name = name,
+            url = url,
+            dataUrl = url
+        )
+    }
+
+    override suspend fun loadLinks(
+        data: String,
+        isCasting: Boolean,
+        subtitleCallback: (SubtitleFile) -> Unit,
+        callback: (ExtractorLink) -> Unit
+    ): Boolean {
+        callback(
+            ExtractorLink(
+                source = name,
+                name = name,
+                url = data,
+                referer = "",
+                quality = Qualities.Unknown.value,
+                isM3u8 = data.contains(".m3u8")
+            )
+        )
+        return true
     }
 }
