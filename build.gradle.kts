@@ -15,7 +15,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:8.7.3")
         // Cloudstream gradle plugin which makes everything work and builds plugins
         classpath("com.github.recloudstream:gradle:-SNAPSHOT")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.4.0")
     }
 }
 
@@ -24,6 +24,11 @@ allprojects {
         google()
         mavenCentral()
         maven("https://jitpack.io")
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            freeCompilerArgs = freeCompilerArgs + listOf("-Xskip-metadata-version-check")
+        }
+    }
     }
 }
 
