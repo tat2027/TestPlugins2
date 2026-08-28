@@ -25,10 +25,10 @@ allprojects {
         mavenCentral()
         maven("https://jitpack.io")
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs + listOf("-Xskip-metadata-version-check")
-        }
+    compilerOptions {
+        freeCompilerArgs.add("-Xskip-metadata-version-check")
     }
+}
     }
 }
 
