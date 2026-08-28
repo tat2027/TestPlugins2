@@ -66,13 +66,11 @@ class ExampleProvider : MainAPI() {
     ): Boolean {
         callback(
             newExtractorLink(
-                source = name,
                 name = name,
-                url = data,
-                type = ExtractorLinkType.M3U8
+                source = name,
+                url = data
             ) {
-                this.referer = ""
-                this.quality = Qualities.Unknown.value
+                this.isM3u8 = true
             }
         )
         return true
