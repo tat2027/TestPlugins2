@@ -1,0 +1,21 @@
+{
+    "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Korduene_Logo.png",
+    "fileHash": "sha256-d201a5b92aed857adf54cd3c070c4feb4f720e1080a91f714efbc740b082e8d9",
+    "apiVersion": 1,
+    "repositoryUrl": "https://github.com/tat2027/TestPlugins2",
+    "fileSize": 10914,
+    "status": 1,
+    "language": "en",
+    "authors": [
+        "Cloudburst",
+        "Luna712"
+    ],
+    "tvTypes": [
+        "Movie"
+    ],
+    "version": 1,
+    "internalName": "ExampleProvider",
+    "description": "Lorem ipsum",
+    "url": "https://raw.githubusercontent.com/tat2027/TestPlugins2/builds/ExampleProvider.cs3",
+    "name": "ExampleProvider"
+}
