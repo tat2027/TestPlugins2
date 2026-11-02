@@ -4,7 +4,7 @@ import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
 import org.jsoup.nodes.Element
 
-class MoviPk : MainAPI() {
+class ExampleProvider : MainAPI() {
     override var mainUrl = "https://www.movi.pk"
     override var name = "Movi.pk"
     override var supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
@@ -15,7 +15,6 @@ class MoviPk : MainAPI() {
         val document = app.get(mainUrl).document
         val homeRows = mutableListOf<HomePageList>()
 
-        // Homepage se movie items select karna
         val list = document.select("div.items.row div.item, div.col-lg-2, div.col-md-3").mapNotNull { el ->
             toResult(el)
         }
@@ -24,7 +23,8 @@ class MoviPk : MainAPI() {
             homeRows.add(HomePageList("Featured Movies", list))
         }
 
-        return HomePageResponse(homeRows)
+        // Deprecated constructor error fix karne ke liye newHomePageResponse use karein
+        return newHomePageResponse(homeRows)
     }
 
     private fun toResult(element: Element): SearchResponse? {
@@ -69,7 +69,6 @@ class MoviPk : MainAPI() {
     ): Boolean {
         val document = app.get(data).document
         
-        // Watch page se iframe ya video links nikalna
         document.select("iframe, source").forEach { element ->
             val link = element.attr("src").ifEmpty { element.attr("data-src") }
             if (link.isNotEmpty()) {
