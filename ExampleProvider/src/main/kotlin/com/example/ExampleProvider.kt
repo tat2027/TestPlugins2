@@ -30,7 +30,6 @@ class ExampleProvider : MainAPI() {
     override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
         val document = app.get(request.data).document
 
-        // Screenshot ke mutabiq movies/items ki list ko select karna
         val list = document.select("div.movies-list.movies-list-full div.item, div.items.row div.item, div.col-lg-2").mapNotNull { el ->
             toResult(el)
         }
@@ -59,7 +58,6 @@ class ExampleProvider : MainAPI() {
         val searchUrl = "$mainUrl/?s=$query"
         val document = app.get(searchUrl).document
 
-        // Search results page par bhi same wrapper use hota hai
         return document.select("div.movies-list.movies-list-full div.item, div.item, div.col-lg-2").mapNotNull { el ->
             toResult(el)
         }
@@ -76,14 +74,24 @@ class ExampleProvider : MainAPI() {
         val isAnime = url.contains("anime", ignoreCase = true)
         val isSeries = isAnime || url.contains("series") || title.contains("Season", ignoreCase = true) || url.contains("web-series") || title.contains("Complete", ignoreCase = true)
 
+        val episodes = mutableListOf<Episode>()
+        document.select("div.les-content a, div.episode-list a").forEachIndexed { index, el ->
+            val epUrl = fixUrl(el.attr("href"))
+            val epTitle = el.text().ifEmpty { "Episode ${index + 1}" }
+            episodes.add(newEpisode(epUrl) {
+                this.name = epTitle
+                this.episode = index + 1
+            })
+        }
+
         return if (isAnime) {
-            newAnimeLoadResponse(title, url, TvType.Anime, emptyList()) {
+            newAnimeLoadResponse(title, url, TvType.Anime, episodes.ifEmpty { emptyList<Episode>() }) {
                 this.posterUrl = poster
                 this.plot = description
                 this.year = year
             }
         } else if (isSeries) {
-            newTvSeriesLoadResponse(title, url, TvType.TvSeries, emptyList()) {
+            newTvSeriesLoadResponse(title, url, TvType.TvSeries, episodes.ifEmpty { emptyList<Episode>() }) {
                 this.posterUrl = poster
                 this.plot = description
                 this.year = year
