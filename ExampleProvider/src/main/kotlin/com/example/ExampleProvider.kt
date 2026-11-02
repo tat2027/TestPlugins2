@@ -85,16 +85,18 @@ class ExampleProvider : MainAPI() {
         }
 
         return if (isAnime) {
-            newAnimeLoadResponse(title, url, TvType.Anime, episodes) {
+            newAnimeLoadResponse(title, url, TvType.Anime, false) {
                 this.posterUrl = poster
                 this.plot = description
                 this.year = year
+                this.episodes = mutableMapOf(DubStatus.Dub to episodes)
             }
         } else if (isSeries) {
-            newTvSeriesLoadResponse(title, url, TvType.TvSeries, episodes) {
+            newTvSeriesLoadResponse(title, url, TvType.TvSeries, false) {
                 this.posterUrl = poster
                 this.plot = description
                 this.year = year
+                this.episodes = mutableMapOf(DubStatus.Dub to episodes)
             }
         } else {
             newMovieLoadResponse(title, url, TvType.Movie, url) {
