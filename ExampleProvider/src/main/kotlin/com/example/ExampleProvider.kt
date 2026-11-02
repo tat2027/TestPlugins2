@@ -23,7 +23,6 @@ class ExampleProvider : MainAPI() {
             homeRows.add(HomePageList("Featured Movies", list))
         }
 
-        // Deprecated constructor error fix karne ke liye newHomePageResponse use karein
         return newHomePageResponse(homeRows)
     }
 
