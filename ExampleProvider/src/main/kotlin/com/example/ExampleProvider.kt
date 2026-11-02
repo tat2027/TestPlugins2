@@ -89,14 +89,14 @@ class ExampleProvider : MainAPI() {
                 this.posterUrl = poster
                 this.plot = description
                 this.year = year
-                this.episodes = episodes
+                this.episodes = mutableMapOf(DubStatus.Sub to episodes)
             }
         } else if (isSeries) {
             newTvSeriesLoadResponse(title, url, TvType.TvSeries) {
                 this.posterUrl = poster
                 this.plot = description
                 this.year = year
-                this.episodes = episodes
+                this.episodes = mutableMapOf(DubStatus.Sub to episodes)
             }
         } else {
             newMovieLoadResponse(title, url, TvType.Movie, url) {
