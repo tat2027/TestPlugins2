@@ -4,7 +4,7 @@ import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
 import org.jsoup.nodes.Element
 
-class ExampleProvider : MainAPI() { // Yeh naam JSON ke 'internalName' se exact match hona chahiye
+class ExampleProvider : MainAPI() {
     override var mainUrl = "https://www.movi.pk"
     override var name = "Movi.pk"
     override var supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
