@@ -1,11 +1,6 @@
 import com.lagradost.cloudstream3.gradle.CloudstreamExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
-    kotlin("jvm")
-    id("com.lagradost.cloudstream3.gradle")
-}
-
 // Configure Cloudstream single-file plugin metadata
 cloudstream {
     // Repository URL where your plugin builds or source is hosted
