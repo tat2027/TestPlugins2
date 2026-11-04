@@ -7,7 +7,7 @@ import android.content.Context
 @CloudstreamPlugin
 class MoviPkPlugin : Plugin() {
     override fun load(context: Context) {
-        // Register your provider(s)
-        registerMainProvider(MoviPkProvider())
+        // Register provider using current Cloudstream API standard
+        register(MoviPkProvider())
     }
 }
