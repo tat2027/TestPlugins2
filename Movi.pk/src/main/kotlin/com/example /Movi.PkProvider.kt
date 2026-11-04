@@ -23,7 +23,6 @@ class MoviPkProvider : MainAPI() {
             home.add(HomePageList("Trending", list))
         }
         
-        // Fixed deprecated HomePageResponse constructor using newHomePageResponse
         return newHomePageResponse(home, false)
     }
 
@@ -51,7 +50,6 @@ class MoviPkProvider : MainAPI() {
         val poster = fixUrlNull(document.selectFirst("img.poster")?.attr("src"))
         val description = document.selectFirst("div.desc")?.text()
         
-        // Fixed newEpisode syntax matching current Cloudstream version
         val episodes = listOf(
             newEpisode(url) {
                 this.name = "Episode 1"
