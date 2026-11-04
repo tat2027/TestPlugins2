@@ -2,7 +2,7 @@ import com.lagradost.cloudstream3.gradle.CloudstreamExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm")
     id("com.lagradost.cloudstream3.gradle") version "0.1.2"
 }
 
@@ -48,4 +48,3 @@ tasks.withType<KotlinCompile> {
         )
     }
 }
-
