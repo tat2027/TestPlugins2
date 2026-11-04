@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
-    id("com.lagradost.cloudstream3.gradle") version "0.1.2"
+    id("com.lagradost.cloudstream3.gradle")
 }
 
 // Configure Cloudstream single-file plugin metadata
