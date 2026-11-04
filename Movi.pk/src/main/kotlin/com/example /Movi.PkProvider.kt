@@ -23,12 +23,12 @@ class MoviPkProvider : MainAPI() {
             home.add(HomePageList("Trending", list))
         }
         
-        return HomePageResponse(home)
+        // Fixed deprecated HomePageResponse constructor using newHomePageResponse
+        return newHomePageResponse(home, false)
     }
 
     private fun Element.toSearchResult(): SearchResponse? {
         val title = this.selectFirst("h2")?.text() ?: return null
-        // Fixed String? by providing a fallback or safe call
         val href = fixUrl(this.selectFirst("a")?.attr("href") ?: return null)
         val posterUrl = fixUrlNull(this.selectFirst("img")?.attr("src"))
         
@@ -38,7 +38,6 @@ class MoviPkProvider : MainAPI() {
     }
 
     override suspend fun search(query: String): List<SearchResponse> {
-        // Fixed unresolved encodeUrl using URLEncoder
         val encodedQuery = URLEncoder.encode(query, "UTF-8")
         val searchUrl = "$mainUrl/?s=$encodedQuery"
         val document = app.get(searchUrl).document
@@ -52,9 +51,10 @@ class MoviPkProvider : MainAPI() {
         val poster = fixUrlNull(document.selectFirst("img.poster")?.attr("src"))
         val description = document.selectFirst("div.desc")?.text()
         
-        // Fixed deprecated Episode constructor using newEpisode
+        // Fixed newEpisode syntax matching current Cloudstream version
         val episodes = listOf(
-            newEpisode(url, "Episode 1") {
+            newEpisode(url) {
+                this.name = "Episode 1"
                 this.description = description
             }
         )
